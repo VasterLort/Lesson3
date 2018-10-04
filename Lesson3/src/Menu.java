@@ -1,26 +1,37 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class Menu {
-	public void start(HashMap<Double, Double> list1, HashMap<Double, Double> list2){
+	public void start(){
 		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-		Fraction fr = new Fraction();
-		Circle circ = new Circle();
-		check_select(read, fr, circ, list1, list2);
+		ArrayList<Double> listX = new ArrayList<Double>();
+		ArrayList<Double> listY = new ArrayList<Double>();
+		checkSelect(read, listX, listY);
 	}
 	
-	private void check_select(BufferedReader read, Fraction fr, Circle circ, HashMap<Double, Double> list1, HashMap<Double, Double> list2){
+	private void checkSelect(BufferedReader read, ArrayList<Double> listX, ArrayList<Double> listY){
 		int controler = 0;
-		while(controler!=6){
-			controler = menu(controler, read);
-			if(controler == 1){fr.start(1, list1);}
-			else if(controler == 2){fr.start(2, list1);}
-			else if(controler == 3){fr.start(3, list1);}
-			else if(controler == 4){fr.start(4, list1);}
-			else if(controler == 5){circ.start(list1, list2);}
+		Fraction fr = new Fraction();
+		Line line = new Line();
+		Cross cross = new Cross();
+	
+		
+		while(controler!=9){
+			controler = menuOne(controler, read);
+			
+			if(controler == 1){fr.start(1, listX, listY);}
+			else if(controler == 2){fr.start(2, listX, listY);}
+			else if(controler == 3){fr.start(3, listX, listY);}
+			else if(controler == 4){fr.start(4, listX, listY);}
+			else if(controler == 5){
+				HashMap<Double, Double> map = new HashMap<Double, Double>();
+				line.start(map);
+				cross.start(listX, listY, map);
+			}
 		}
 	}
 	
@@ -32,16 +43,15 @@ public class Menu {
 		return cou;
 	}
 	
-	private int menu(int sel, BufferedReader read){
-			System.out.println();
-			System.out.println("ѕо какой рациональной дроби искать центр окружности: ");
-			System.out.println("1 - A/(x-a)");
-			System.out.println("2 - A/(x-a)^n");
-			System.out.println("3 - (M*x + N)/(x^2 + px + q)");
-			System.out.println("4 - (M*x + N)/(x^2 + px + q)^n");
-			System.out.println("5 - ¬ывести номера окружностей, центры которых лежат на одной пр€мой ");
-			System.out.println("6 - ¬ыход");
-			return sel = input(read);
+	private int menuOne(int sel, BufferedReader read){
+		System.out.println();
+		System.out.println("—оставление формулы и нахождение периметра и площади");
+		System.out.println("1 - A/(x-a)");
+		System.out.println("2 - A/(x-a)^n");
+		System.out.println("3 - (M*x + N)/(x^2 + px + q)");
+		System.out.println("4 - (M*x + N)/(x^2 + px + q)^n");
+		System.out.println("5 - ¬ывести номера окружностей, центры которых лежат на одной пр€мой ");
+		System.out.println("9 - ¬ыход");
+		return sel = input(read);
 	}
-	
 }
